@@ -1,0 +1,78 @@
+{
+  "name": "i18n-key-copier",
+  "displayName": "i18n Key Copier",
+  "description": "VS Code extension to copy i18n key paths from YAML/JSON files",
+  "author": {
+    "name": "Khaled Oghli",
+    "email": "khalidoghli7@gmail.com"
+  },
+  "version": "1.0.1",
+  "publisher": "khaledOghli",
+  "engines": {
+    "vscode": "^1.97.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:yaml",
+    "onLanguage:yml",
+    "onLanguage:json"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "i18n-key-copier.copyKeyPath",
+        "title": "Copy i18n Key Path"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "i18n-key-copier.copyKeyPath",
+          "when": "resourceLangId == json || resourceLangId == yaml || resourceLangId == yml",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all --parallel watch:esbuild watch:tsc",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "devDependencies": {
+    "@types/json-to-ast": "^2.1.4",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.97.0",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.24.2",
+    "eslint": "^9.19.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "json-to-ast": "^2.1.0",
+    "yaml": "^2.7.0"
+  }
+}
