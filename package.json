@@ -27,15 +27,15 @@
         "title": "Copy i18n Key Path"
       }
     ],
-    "menus": {
-      "editor/context": [
-        {
-          "command": "i18n-key-copier.copyKeyPath",
-          "when": "resourceLangId == json || resourceLangId == yaml || resourceLangId == yml",
-          "group": "navigation"
-        }
-      ]
-    }
+  "menus": {
+    "editor/context": [
+      {
+        "command": "i18n-key-copier.copyKeyPath",
+        "when": "editorHasSelection && (resourceLangId == json || resourceLangId == yaml || resourceLangId == yml)",
+        "group": "navigation"
+      }
+    ]
+  }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

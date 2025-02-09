@@ -18,9 +18,19 @@ export function activate(context: vscode.ExtensionContext) {
       const document = editor.document;
       console.log("📄 Opened file:", document.fileName);
 
-      const selection = editor.selection;
-      const text = document.getText(selection);
-      console.log("🔍 Selected text:", text);
+      // Use a mutable selection variable.
+      let selection = editor.selection;
+      let text = document.getText(selection);
+      console.log("🔍 Initial selection:", text);
+      // If nothing is selected, try to get the word at the cursor position.
+      if (!text.trim()) {
+        const wordRange = editor.document.getWordRangeAtPosition(editor.selection.active);
+        if (wordRange) {
+          selection = new vscode.Selection(wordRange.start, wordRange.end);
+          text = document.getText(wordRange);
+          console.log("🔍 Word under cursor:", text);
+        }
+      }
 
       if (!text) {
         vscode.window.showErrorMessage("Select a key to copy its path.");
