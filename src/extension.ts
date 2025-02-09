@@ -7,37 +7,24 @@ export function activate(context: vscode.ExtensionContext) {
   const copyKeyCommand = vscode.commands.registerCommand(
     "i18n-key-copier.copyKeyPath",
     async () => {
-      console.log("✅ Copy i18n Key Path command executed!");
-
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
-        console.log("❌ No active editor found!");
+        vscode.window.showErrorMessage("No active editor found!");
+        return;
+      }
+
+      // Ensure that something is actually selected.
+      if (editor.selection.isEmpty) {
+        vscode.window.showErrorMessage("Please select a key to copy its path.");
         return;
       }
 
       const document = editor.document;
-      console.log("📄 Opened file:", document.fileName);
+      const selection = editor.selection;
+      const text = document.getText(selection);
+      console.log("🔍 Selected text:", text);
 
-      // Use a mutable selection variable.
-      let selection = editor.selection;
-      let text = document.getText(selection);
-      console.log("🔍 Initial selection:", text);
-      // If nothing is selected, try to get the word at the cursor position.
-      if (!text.trim()) {
-        const wordRange = editor.document.getWordRangeAtPosition(editor.selection.active);
-        if (wordRange) {
-          selection = new vscode.Selection(wordRange.start, wordRange.end);
-          text = document.getText(wordRange);
-          console.log("🔍 Word under cursor:", text);
-        }
-      }
-
-      if (!text) {
-        vscode.window.showErrorMessage("Select a key to copy its path.");
-        return;
-      }
-
-      // Determine the file type from the file name extension.
+      // Determine file type based on the file extension.
       const fileType = document.fileName.endsWith(".json") ? "json" : "yaml";
       console.log("🛠 Detected file type:", fileType);
 
