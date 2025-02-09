@@ -6,7 +6,7 @@
     "name": "Khaled Oghli",
     "email": "khalidoghli7@gmail.com"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "khaledOghli",
   "engines": {
     "vscode": "^1.97.0"
