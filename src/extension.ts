@@ -5,47 +5,30 @@ import { getI18nKeyPath } from "./utils/extractKeyPath";
 export function activate(context: vscode.ExtensionContext) {
   console.log("🚀 i18n Key Copier extension activated!");
 
-  const copyKeyCommand = vscode.commands.registerCommand(
+  // Use registerTextEditorCommand so we get the editor and its selection.
+  const copyKeyCommand = vscode.commands.registerTextEditorCommand(
     "i18n-key-copier.copyKeyPath",
-    async () => {
+    async (editor, edit) => {
       console.log("✅ Copy i18n Key Path command executed!");
-
-      const editor = vscode.window.activeTextEditor;
-      if (!editor) {
-        console.log("❌ No active editor found!");
-        return;
-      }
 
       const document = editor.document;
       console.log("📄 Opened file:", document.fileName);
 
-      let selection = editor.selection;
+      const selection = editor.selection;
+      const text = document.getText(selection);
+      console.log("🔍 Selected text:", text);
 
-      // If the selection is empty, try to get the word at the cursor.
-      if (selection.isEmpty) {
-        const wordRange = document.getWordRangeAtPosition(selection.active);
-        if (wordRange) {
-          selection = new vscode.Selection(wordRange.start, wordRange.end);
-          console.log("✂️ No explicit selection—using word range:", document.getText(selection));
-        } else {
-          vscode.window.showErrorMessage("Select a key to copy its path.");
-          return;
-        }
-      }
-
-      const selectedText = document.getText(selection);
-      console.log("🔍 Selected text:", selectedText);
-
-      if (!selectedText) {
+      // If nothing is selected (or only whitespace), display an error.
+      if (text.trim().length === 0) {
         vscode.window.showErrorMessage("Select a key to copy its path.");
         return;
       }
 
-      // Determine file type from file extension.
+      // Determine the file type by its extension.
       const fileType = document.fileName.endsWith(".json") ? "json" : "yaml";
       console.log("🛠 Detected file type:", fileType);
 
-      // Extract the key path using our utility.
+      // Extract the key path from the entire document using the selected range.
       const keyPath = getI18nKeyPath(document.getText(), selection, fileType);
       console.log("🔑 Extracted key path:", keyPath);
 

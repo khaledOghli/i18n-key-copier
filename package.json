@@ -35,7 +35,7 @@
       "editor/context": [
         {
           "command": "i18n-key-copier.copyKeyPath",
-          "when": "(resourceLangId == json || resourceLangId == yaml || resourceLangId == yml) && editorHasSelection",
+          "when": "editorHasSelection && (resourceLangId == json || resourceLangId == yaml || resourceLangId == yml)",
           "group": "navigation"
         }
       ]

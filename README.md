@@ -1,7 +1,7 @@
 # i18n Key Copier
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/your-publisher-id.i18n-key-copier.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=your-publisher-id.i18n-key-copier)
-[![Downloads](https://img.shields.io/visual-studio-marketplace/d/your-publisher-id.i18n-key-copier.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=your-publisher-id.i18n-key-copier)
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/khaledoghli.i18n-key-copier.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=khaledoghli.i18n-key-copier)
+[![Downloads](https://img.shields.io/visual-studio-marketplace/d/khaledoghli.i18n-key-copier.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=khaledoghli.i18n-key-copier)
 
 ## Overview
 
@@ -21,7 +21,7 @@
 1. Open Visual Studio Code.
 2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar or pressing `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (macOS).
 3. Search for **i18n Key Copier**.
-4. Click **Install** on the extension published by `your-publisher-id`.
+4. Click **Install** on the extension published by `khaledoghli`.
 
 ### From a VSIX Package
 
