@@ -11,6 +11,10 @@
   "engines": {
     "vscode": "^1.97.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khaledOghli/i18n-key-copier.git"
+  },
   "categories": [
     "Other"
   ],
