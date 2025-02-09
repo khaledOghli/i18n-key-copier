@@ -57,7 +57,7 @@
     "generate-vsix": "vsce package",
     "add-vesrion": "npm version patch",
     "npm-publish": "npm publish",
-    "publish": "npm run add-vesrion && npm run generate-vsix && npm run npm-publish"
+    "publish-last": "npm run add-vesrion && npm run generate-vsix && npm run npm-publish"
   },
   "files": [
     "dist",
