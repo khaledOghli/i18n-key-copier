@@ -13,16 +13,21 @@ export function getI18nKeyPath(
   fileType: "json" | "yaml"
 ): string | null {
   try {
-    // Convert the vscode position into an absolute offset.
-    const offset = getOffsetFromPosition(content, selection.start);
-    console.log("🔍 Selection Offset:", offset);
+    // Compute offsets for both the start and the end of the selection.
+    const startOffset = getOffsetFromPosition(content, selection.start);
+    const endOffset = getOffsetFromPosition(content, selection.end);
+    // If the selection is non-empty, use the midpoint as the offset.
+    const offset = selection.isEmpty
+      ? startOffset
+      : Math.floor((startOffset + endOffset) / 2);
+    console.log("🔍 Using offset:", offset);
 
     if (fileType === "json") {
       const ast = jsonToAst(content, { loc: true });
       console.log("✅ JSON AST:", ast);
       return findJsonKeyPath(ast, offset);
     } else {
-      // Cast options to 'any' so that 'keepCstNodes' is accepted.
+      // For YAML, keep the CST nodes so we have location information.
       const doc = YAML.parseDocument(content, { keepCstNodes: true } as any);
       const ast = doc.contents;
       console.log("✅ YAML AST:", ast);
@@ -47,6 +52,7 @@ function getOffsetFromPosition(content: string, position: Position): number {
   return offset;
 }
 
+// ... (rest of your findJsonKeyPath and findYamlKeyPath functions)
 /**
  * Recursively searches the JSON AST (from json-to-ast) for a property
  * whose key token covers the given offset.
